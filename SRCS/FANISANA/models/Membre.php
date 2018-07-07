@@ -196,7 +196,7 @@ class Membre {
         }
     }
 
-    static public function saveMembre(\PDO $pdo,$NumeroMembre,$NomMembre,$PrenomMembre,$DateNaissance,$LieuNaissance,$GenderMembre){
+    static public function saveMembre(\PDO $pdo,$NumeroMembre,$NomMembre,$PrenomMembre,$DateNaissance,$LieuNaissance,$GenderMembre,$chefFamille){
         try {
 
             $date = strtotime($DateNaissance);
@@ -208,13 +208,26 @@ class Membre {
             }else{
                 $sexe = 1;
             }
-            $prepare = $pdo->prepare('INSERT INTO membre(NumeroMembre,NomMembre,PrenomMembre,DateNaissance,LieuNaissance,GenderMembre) VALUES(?,?,?,?,?,?)');
-            $prepare->execute(array($NumeroMembre,$NomMembre,$PrenomMembre,$datenaiss_format,$LieuNaissance,$sexe));
+
+            $prepare = $pdo->prepare('INSERT INTO membre(NumeroMembre,NomMembre,PrenomMembre,DateNaissance,LieuNaissance,GenderMembre,StatusMembre) VALUES(?,?,?,?,?,?,?)');
+            $prepare->execute(array($NumeroMembre,$NomMembre,$PrenomMembre,$datenaiss_format,$LieuNaissance,$sexe,$chefFamille));
             $nb = $prepare->rowCount();
             $prepare->closeCursor();
             return $nb;
         } catch (\PDOException $es) {
             echo $es->getMessage();
+        }
+    }
+
+    static function updateInfoMembre(\PDO $pdo,$IdFamille,$IdMembre){
+        try {
+            $statement = $pdo->prepare('UPDATE membre SET IdFamille= ? WHERE IdMembre= ? ');
+            $statement->execute(array($IdFamille,$IdMembre));
+            $statement->closeCursor();
+            $nb = $statement->rowCount();
+            return $nb;
+        } catch (\PDOException $ex) {
+            echo $ex->getMessage();
         }
     }
 

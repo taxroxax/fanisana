@@ -10,8 +10,16 @@ require(dirname(__DIR__).'\controllers\MembreController.php');
 
 $listFamille = \controllers\FamilleController::LoadAllFamille();
 
-$countFamille = count($listFamille);
+$idFamille = null;
+$idChef = "";
+if($_GET){
+    $idChef = $_GET['idChef'];
+}
+$loadFamilleById = \controllers\FamilleController::LoadFamilleById($idChef);
 
+foreach($loadFamilleById as $famille){
+    $idFamille = $famille->getIdFamille();
+}
 include_once "header.php";?>
 
 <div class="main-content">
@@ -36,21 +44,21 @@ include_once "header.php";?>
         <div class="page-header">
             <a href="#">
                 <h1>
-                    Hisoratra
+                    Fianakaviana laharana faha : <?php echo $idFamille;  ?>
                 </h1>
             </a>
         </div><!-- /.page-header -->
-        <form name="hanampy" action="" method="post">
+        <form name="hanampy"action="../controllers/ActionFamilleController.php" method="post">
+        <input type="hidden" name="idChef" value="<?php echo $idChef; ?>">
+        <input type="hidden" name="idfamille" value="<?php echo $idFamille; ?>">
         <div class="row">
             <div class="col-xs-12">
-
-                    <input type="hidden" value="<?php echo $countFamille+1; ?>" name="id_famille">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <div class="widget-box">
 
                                 <div class="widget-header">
-                                    <h4>&nbsp;&nbsp;&nbsp;</h4>
+                                    <h4>Laharan'ny karatry ny Filoham-pianakaviana : <?php echo $idChef; ?></h4>
                                     <div class="widget-toolbar">
                                         <span class="label label-lg label-success arrowed-right">
                                                            <i class="icon-warning-sign bigger-120"></i>
@@ -80,16 +88,16 @@ include_once "header.php";?>
                                                     </tr>
                                                     <tbody>
                                                     <tr>
-                                                        <td> <select required="required" id="Quartier" name="Quartier[]" class="form-control" id="form-field-select-1">
+                                                        <td> <select required="required" id="Quartier" name="quartier" class="form-control" id="form-field-select-1">
                                                                 <?php \controllers\QuartierController::loadOptionQuartier(); ?>
                                                                 <select>
                                                         </td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="adresse" name="adresse[]" class="input-mask-id" type="text" placeholder="Adiresy"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="ville" name="ville[]" class="input-mask-id" type="text" placeholder="Tanana"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="codepostale" name="codepostale[]" class="input-mask-id" type="text" placeholder="kaody postaly"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="codepays" name="codepays[]" class="input-mask-id" type="text" placeholder="Toerana"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="phone" name="phone[]" class="input-mask-id" type="text" placeholder="Finday"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="mail" name="mail[]" class="input-mask-id" type="text" placeholder="Mailaka"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="adresse" name="adresse" class="input-mask-id" type="text" placeholder="Adiresy"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="ville" name="ville" class="input-mask-id" type="text" placeholder="Tanana"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="codepostale" name="codepostale" class="input-mask-id" type="text" placeholder="kaody postaly"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="codepays" name="codepays" class="input-mask-id" type="text" placeholder="Toerana"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="phone" name="phone" class="input-mask-id" type="text" placeholder="Finday"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="mail" name="mail" class="input-mask-id" type="text" placeholder="Mailaka"></td>
 
                                                     </tr>
                                                     </tbody>
@@ -116,20 +124,19 @@ include_once "header.php";?>
                                 <span class="label label-lg label-success arrowed-right">
                                                            <i class="icon-warning-sign bigger-120"></i>
                                                             Mpikambana ao amin'ny fianakaviana
-                                        </span>
+                                        </span><!--
                                 <a href="#" class="btn btn-xs btn-light add_field_button">
                                     <i class="icon-plus-sign bigger-120"></i>
                                     hanampy
-                                </a>&nbsp;
+                                </a>&nbsp;-->
                                 </div>
                             </div>
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <div class="input_fields_wrap">
                                         <div>
-                                            <label for="form-field-select-4">Safidio ny Mpikambana ao amin'ny fianakaviana, atomboka amin'ny loham-pianakaviana</label>
-                                            <br />
-                                            <select multiple="" class="width-80 chosen-select" id="form-field-select-4" data-placeholder="Safidio ny Mpikambana ao amin'ny fianakaviana..." style="display: none; ">
+                                            <label for="form-field-select-4">Safidio ny mpikambana ... &nbsp;&nbsp;</label>
+                                            <select multiple="" name="membre[]" class="width-80 chosen-select" id="form-field-select-4" data-placeholder="Safidio eto ny Mpikambana ao amin'ny fianakaviana, atomboka amin'ny loham-pianakaviana..." style="display: none; ">
                                                 <?php \controllers\MembreController::loadOptionMembre(); ?>
                                             </select>
                                         </div>
