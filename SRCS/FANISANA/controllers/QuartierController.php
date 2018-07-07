@@ -16,4 +16,16 @@ class QuartierController {
             $list = \models\Quartier::LoadQuartier($pdo);
             return $list;
         }
+
+    static function loadOptionQuartier()
+    {
+        $pdo = \App\Config::getInstance()->getPdo();
+        $option = "";
+        foreach (\models\Quartier::LoadQuartier($pdo) as $quartier) :
+
+            $option .= "<option value='" . $quartier->getIdQuartier() . "'>".$quartier->getLibelleQuartier() . "</option>";
+
+        endforeach;
+        print $option;
+    }
 } 

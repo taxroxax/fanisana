@@ -157,14 +157,14 @@
 
                     <ul class="submenu">
                         <li>
-                            <a href="#">
+                            <a href="new_famille.php">
                                 <i class="icon-double-angle-right"></i>
                                 Hanampy
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="famille.php">
                                 <i class="icon-double-angle-right"></i>
                                 Lisitra
                             </a>
@@ -181,7 +181,7 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="#">
+                            <a href="new_membre.php">
                                 <i class="icon-double-angle-right"></i>
                                 Hisoratra
                             </a>

@@ -77,6 +77,14 @@
                 ]
             });
 
+            var oTable2 = $('#table_liste_famille').dataTable({
+                "aoColumns": [
+                    {"bSortable": false},
+                    null,null,null,null,null,null,
+                    {"bSortable": false}
+                ]
+            });
+
             $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
                 $(this).prev().focus();
             });

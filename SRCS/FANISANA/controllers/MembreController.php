@@ -16,4 +16,16 @@ class MembreController {
         $list = \models\Membre::LoadMembre($pdo);
         return $list;
     }
+
+    static function loadOptionMembre()
+    {
+        $pdo = \App\Config::getInstance()->getPdo();
+        $option = "";
+        foreach (\models\Membre::LoadMembre($pdo) as $membre) :
+
+            $option .= "<option value='" . $membre->getIdMembre() . "'>".$membre->getNomMembre() . "</option>";
+
+        endforeach;
+        print $option;
+    }
 } 

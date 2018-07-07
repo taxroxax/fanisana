@@ -2,9 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: RAJAONARILALA
- * Date: 04/07/18
- * Time: 22:59
+ * Date: 07/07/18
+ * Time: 12:58
  */
+
 require(dirname(__DIR__).'\controllers\MembreController.php');
 $list = \controllers\MembreController::LoadAllMembre();
 require(dirname(__DIR__).'\controllers\FamilleController.php');
@@ -25,7 +26,7 @@ include_once "header.php";?>
                 <i class="icon-home home-icon"></i>
                 <a href="index.php">TONGASOA</a>
             </li>
-            <li class="active">MPIKAMBANA</li>
+            <li class="active">FIANAKAVIANA</li>
         </ul>
         <!-- .breadcrumb -->
     </div>
@@ -33,9 +34,9 @@ include_once "header.php";?>
     <div class="hr dotted"></div>
     <div class="page-content">
         <div class="page-header">
-            <a href="membre.php">
+            <a href="famille.php">
                 <h1>
-                    Lisitry ny mpikambana
+                    Lisitry ny fianakaviana
                 </h1>
             </a>
         </div><!-- /.page-header -->
@@ -59,11 +60,11 @@ include_once "header.php";?>
                                         </span>
 
                                     <?php } ?>
-                                        <span class="label label-lg label-success arrowed-right">
+                                    <span class="label label-lg label-success arrowed-right">
                                                             <i class="icon-warning-sign bigger-120"></i>
-                                                            Hanampy mpikambana
+                                                            Hanampy fianakaviana
                                         </span>
-                                    <a href="new_membre.php" class="btn btn-xs btn-light">
+                                    <a href="new_famille.php" class="btn btn-xs btn-light">
                                         <i class="icon-plus-sign bigger-120"></i>
                                         Vaovao
                                     </a>&nbsp;
@@ -75,31 +76,32 @@ include_once "header.php";?>
                                 <div class="widget-body">
                                     <div class="widget-main">
                                         <!--table lisitra-->
-                                        <?php if(isset($list) && !empty($list)) : ?>
+                                        <?php if(isset($listFamille) && !empty($listFamille)) : ?>
 
                                             <div class="table-responsive">
-                                                <table id="table_liste_membre" class="table table-striped table-bordered table-hover">
+                                                <table id="table_liste_famille" class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th>Karatra N°</th>
-                                                        <th>Anarana</th>
-                                                        <th class="hidden-xs">Taona,Toerana Nahaterahana</th>
-                                                        <th class="hidden-xs" >L / V</th>
-                                                        <th class="hidden-xs" >Loham-pianakaviana</th>
-                                                        <th class="hidden-xs" >Fianakaviana</th>
+                                                        <th>Mpitarika N°</th>
+                                                        <th>Adiresy</th>
+                                                        <th class="hidden-xs">Kaody postaly</th>
+                                                        <th class="hidden-xs" >Tanana</th>
+                                                        <th class="hidden-xs" >Kaody-tanana</th>
+                                                        <th class="hidden-xs" >Finday</th>
+                                                        <th class="hidden-xs" >Mailaka</th>
+                                                        <th class="hidden-xs" >Faritra</th>
                                                     </tr>
                                                     <tbody>
-                                                    <?php foreach ($list as $l) : ?>
+                                                    <?php foreach ($listFamille as $l) : ?>
                                                         <tr>
-                                                            <td><?php echo $l->getNumeroMembre(); ?></td>
-                                                            <td><?php echo $l->getNomMembre() .' '. $l->getPrenomMembre(); ?></td>
-                                                            <td class="hidden-xs" ><?php echo date('d M Y',strtotime($l->getDateNaissance())) . ' tao ' .$l->getLieuNaissance() ;  ?></td>
-                                                            <td class="hidden-xs" ><?php if($l->getGenderMembre() == 1){ echo "Lehilahy"; }else {echo "Vehivavy"; }  ?></td>
-                                                            <td class="hidden-xs" >
-                                                            <?php if($l->getStatusMembre()!=null):?>
-                                                                <i class="normal-icon icon-user red bigger-130"></i>
-                                                            <?php echo " Mpitarika" ; endif; ?></td>
-                                                            <td class="hidden-xs" ><?php echo $l->getIdFamille(); ?></td>
+                                                            <td><?php echo $l->getIdChefFamille(); ?></td>
+                                                            <td><?php echo $l->getAdresseFamille(); ?></td>
+                                                            <td class="hidden-xs" ><?php echo $l->getCodePostal() ;  ?></td>
+                                                            <td class="hidden-xs" ><?php echo $l->getVille();  ?></td>
+                                                            <td class="hidden-xs" ><?php echo $l->getCodePays();  ?></td>
+                                                            <td class="hidden-xs" ><?php echo $l->getTelephone();  ?></td>
+                                                            <td class="hidden-xs" ><?php echo $l->getEmail();  ?></td>
+                                                            <td class="hidden-xs" ><?php echo 'FARITRA - '. $l->getIdQuartier();  ?></td>
                                                         </tr>
                                                     <?php endforeach;?>
                                                     </tbody>

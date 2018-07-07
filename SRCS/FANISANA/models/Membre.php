@@ -196,5 +196,27 @@ class Membre {
         }
     }
 
+    static public function saveMembre(\PDO $pdo,$NumeroMembre,$NomMembre,$PrenomMembre,$DateNaissance,$LieuNaissance,$GenderMembre){
+        try {
+
+            $date = strtotime($DateNaissance);
+            $datenaiss_format = date('Y-m-d',$date);
+            $sexe = null;
+
+            if($GenderMembre == 'Vavy'){
+                $sexe = 0;
+            }else{
+                $sexe = 1;
+            }
+            $prepare = $pdo->prepare('INSERT INTO membre(NumeroMembre,NomMembre,PrenomMembre,DateNaissance,LieuNaissance,GenderMembre) VALUES(?,?,?,?,?,?)');
+            $prepare->execute(array($NumeroMembre,$NomMembre,$PrenomMembre,$datenaiss_format,$LieuNaissance,$sexe));
+            $nb = $prepare->rowCount();
+            $prepare->closeCursor();
+            return $nb;
+        } catch (\PDOException $es) {
+            echo $es->getMessage();
+        }
+    }
+
 
 } 
