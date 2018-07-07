@@ -14,27 +14,6 @@ $countFamille = count($listFamille);
 
 include_once "header.php";?>
 
-<script src="assets/customjs/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        var max_fields      = 10; //maximum input boxes allowed
-        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-        var add_button      = $(".add_field_button"); //Add button ID
-
-        var x = 0; //initlal text box count
-        $(add_button).click(function(e){ //on add input button click
-            e.preventDefault();
-            if(x < max_fields){ //max input box allowed
-                x++; //text box increment
-                $(wrapper).append('<div class="formulaire">Mpikambana<select required="required" id="Quartier" name="Membre[]" id="form-field-select-1"><?php \controllers\MembreController::loadOptionMembre(); ?><select><label><span class="lbl">Filoham-pianakaviana</span><select name="chef"><option value = "0"> Tsia </option><option value = "1"> Eny </option></select></label><a href="#" class="remove_field">Remove</a></div>'); }
-        });
-
-        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent('.formulaire').remove(); x--;
-        })
-    });
-</script>
-
 <div class="main-content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -61,9 +40,10 @@ include_once "header.php";?>
                 </h1>
             </a>
         </div><!-- /.page-header -->
+        <form name="hanampy" action="" method="post">
         <div class="row">
             <div class="col-xs-12">
-                <form name="hanampy" action="" method="post">
+
                     <input type="hidden" value="<?php echo $countFamille+1; ?>" name="id_famille">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
@@ -72,14 +52,12 @@ include_once "header.php";?>
                                 <div class="widget-header">
                                     <h4>&nbsp;&nbsp;&nbsp;</h4>
                                     <div class="widget-toolbar">
-<!--                                        <span class="label label-lg label-success arrowed-right">-->
-<!--                                                            <i class="icon-warning-sign bigger-120"></i>-->
-<!--                                                            Tsindrio ity raha hanampy fanoratana vaovao ianao-->
-<!--                                        </span>-->
-<!--                                        <a href="#" class="btn btn-xs btn-light add_field_button">-->
-<!--                                            <i class="icon-plus-sign bigger-120"></i>-->
-<!--                                            hanampy-->
-<!--                                        </a>&nbsp;-->
+                                        <span class="label label-lg label-success arrowed-right">
+                                                           <i class="icon-warning-sign bigger-120"></i>
+                                                            Tsindrio ity rehefa vita ny famenoana
+                                        </span>
+                                        <input class="btn btn-xs btn-light" type="submit" name="action" value="Tehirizina" >
+                                        &nbsp;
 
                                         <a href="#" data-action="collapse">
                                             <i class="icon-chevron-up"></i>
@@ -117,31 +95,54 @@ include_once "header.php";?>
                                                     </tbody>
                                                     </thead>
                                                 </table>
-                                                <div class="input_fields_wrap">
-                                                <div class="formulaire">
-                                                    Mpikambana
-                                                    <select required="required" id="Quartier" name="Membre[]" id="form-field-select-1">
-                                                        <?php \controllers\MembreController::loadOptionMembre(); ?>
-                                                        <select>
-                                                    <label><span class="lbl">Filoham-pianakaviana</span>
-                                                        <select name="chef">
-                                                            <option value = '0'> Tsia </option>
-                                                            <option value = '1'> Eny </option>
-                                                        </select>
-                                                    </label>
-                                                </div>
-                                                    <button>Hanampy</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input class="btn-primary" type="submit" name="action" value="Tehirizina" >
                         </div>
                     </div>
-                </div> </form>
+                </div>
             </div>
         </div>
+            <div class="hr hr-18 dotted hr-double"></div>
+            <div class="row">
+            <div class="col-sm-12 col-xs-11">
+                <div class="row">
+                    <div class="col-sm-12" >
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4>&nbsp;&nbsp;&nbsp;</h4>
+                                <div class="widget-toolbar">
+                                <span class="label label-lg label-success arrowed-right">
+                                                           <i class="icon-warning-sign bigger-120"></i>
+                                                            Mpikambana ao amin'ny fianakaviana
+                                        </span>
+                                <a href="#" class="btn btn-xs btn-light add_field_button">
+                                    <i class="icon-plus-sign bigger-120"></i>
+                                    hanampy
+                                </a>&nbsp;
+                                </div>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="input_fields_wrap">
+                                        <div>
+                                            <label for="form-field-select-4">Safidio ny Mpikambana ao amin'ny fianakaviana, atomboka amin'ny loham-pianakaviana</label>
+                                            <br />
+                                            <select multiple="" class="width-80 chosen-select" id="form-field-select-4" data-placeholder="Safidio ny Mpikambana ao amin'ny fianakaviana..." style="display: none; ">
+                                                <?php \controllers\MembreController::loadOptionMembre(); ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
 </div>
 

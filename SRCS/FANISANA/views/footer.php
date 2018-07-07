@@ -45,6 +45,7 @@
 
 <script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="assets/js/chosen.jquery.min.js"></script>
 <script src="assets/js/jquery.slimscroll.min.js"></script>
 <script src="assets/js/jquery.easy-pie-chart.min.js"></script>
 <script src="assets/js/jquery.sparkline.min.js"></script>
@@ -89,11 +90,16 @@
                 $(this).prev().focus();
             });
 
+            $(".chosen-select").chosen();
+            $('#chosen-multiple-style').on('click', function(e){
+                var target = $(e.target).find('input[type=radio]');
+                var which = parseInt(target.val());
+                if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+                else $('#form-field-select-4').removeClass('tag-input-style');
+            });
 
             $.mask.definitions['~']='[+-]';
             $('.input-mask-idmembre').mask('999999');
-
-
         })
 </script>
 </body>
