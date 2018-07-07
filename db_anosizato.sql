@@ -89,7 +89,7 @@ CREATE TABLE `membre` (
 
 /*Data for the table `membre` */
 
-insert  into `membre`(`IdMembre`,`NumeroMembre`,`NomMembre`,`PrenomMembre`,`DateNaissance`,`LieuNaissance`,`GenderMembre`,`StatusMembre`,`IdFamille`) values (2,'6124','Razafinimanana','Nirina','1966-07-05 00:00:00','Mahamasina',1,1,1),(3,'6125','Rasoavelonoro','Aimée','1963-10-01 00:00:00','Mahamasina',0,NULL,1),(4,'6128','Razafinimanana','Norosoa','1995-12-02 00:00:00','Mahamasina',0,NULL,NULL),(15,'85467','teste 2','teste 2','2018-07-04 00:00:00','teste 2',1,NULL,NULL),(16,'85494','teste 3','teste 3','2017-06-27 00:00:00','antananarivo',0,NULL,NULL),(17,'8958','lili','narivony','2018-07-10 00:00:00','teste',1,NULL,NULL);
+insert  into `membre`(`IdMembre`,`NumeroMembre`,`NomMembre`,`PrenomMembre`,`DateNaissance`,`LieuNaissance`,`GenderMembre`,`StatusMembre`,`IdFamille`) values (2,'6124','Razafinimanana','Nirina','1966-07-05 00:00:00','Mahamasina',1,1,1),(3,'6125','Rasoavelonoro','Aimée','1963-10-01 00:00:00','Mahamasina',0,NULL,1),(4,'6128','Razafinimanana','Norosoa','1995-12-02 00:00:00','Mahamasina',0,NULL,1),(15,'85467','teste 2','teste 2','2018-07-04 00:00:00','teste 2',1,NULL,1),(16,'85494','teste 3','teste 3','2017-06-27 00:00:00','antananarivo',0,NULL,1),(17,'8958','lili','narivony','2018-07-10 00:00:00','teste',1,NULL,1);
 
 /*Table structure for table `participer` */
 
