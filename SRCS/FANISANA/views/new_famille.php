@@ -63,7 +63,7 @@ include_once "header.php";?>
         </div><!-- /.page-header -->
         <div class="row">
             <div class="col-xs-12">
-                <form name="hanampy" action="../controllers/ActionFamilleController.php" method="post">
+                <form name="hanampy" action="" method="post">
                     <input type="hidden" value="<?php echo $countFamille+1; ?>" name="id_famille">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
@@ -130,7 +130,7 @@ include_once "header.php";?>
                                                         </select>
                                                     </label>
                                                 </div>
-                                                    <button class="add_field_button">Hanampy</button>
+                                                    <button>Hanampy</button>
                                                 </div>
                                             </div>
                                         </div>
