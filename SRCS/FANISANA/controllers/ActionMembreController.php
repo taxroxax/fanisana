@@ -8,6 +8,7 @@
 
 require_once 'QuartierController.php';
 include_once '../models/Membre.php';
+include_once '../models/Famille.php';
 
 $action = "";
 if($_POST){
@@ -16,7 +17,7 @@ if($_POST){
     $action = $_GET['action'];
 }
 
-
+$chefFamille = $_POST['chefFamille'];
 $NumeroMembre = $_POST['NumeroMembre'];
 $NomMembre = $_POST['NomMembre'];
 $PrenomMembre = $_POST['PrenomMembre'];
@@ -30,8 +31,12 @@ if($action == 'Tehirizina'){
     $tmp = array();
     $pdo = \App\Config::getInstance()->getPdo();
     foreach ($NumeroMembre as $element) {
-
-        $tmp[$i] = array('num' =>$NumeroMembre[$i],
+        $chef = null;
+        if($chefFamille[$i] == 'oui'){
+            $chef = 1;
+        }
+        $tmp[$i] = array('chefFamille'=>$chef,
+            'num' =>$NumeroMembre[$i],
             'NomMembre' =>$NomMembre[$i],
             'PrenomMembre' =>$PrenomMembre[$i],
             'DateNaissance' =>$datenaiss_membre[$i],
@@ -41,7 +46,10 @@ if($action == 'Tehirizina'){
         $i++;
     }
     foreach ($tmp as $data){
-        $nb = \models\Membre::saveMembre($pdo,$tmp[$j]['num'],$tmp[$j]['NomMembre'],$tmp[$j]['PrenomMembre'],$tmp[$j]['DateNaissance'],$tmp[$j]['LieuNaissance'],$tmp[$j]['GenderMembre']);
+        if($chef = 1 ){
+            \models\Famille::initializeFamille($pdo,$tmp[$j]['num']);
+        }
+        $nb = \models\Membre::saveMembre($pdo,$tmp[$j]['num'],$tmp[$j]['NomMembre'],$tmp[$j]['PrenomMembre'],$tmp[$j]['DateNaissance'],$tmp[$j]['LieuNaissance'],$tmp[$j]['GenderMembre'],$tmp[$j]['chefFamille']);
         $j++;
     }
 

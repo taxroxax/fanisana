@@ -194,4 +194,46 @@ class Famille {
 
         }
     }
+
+    //initialize famille
+    static public function initializeFamille(\PDO $pdo,$idChefFamille){
+        try {
+            $prepare = $pdo->prepare('INSERT INTO famille(IdChefFamille) VALUES(?)');
+            $prepare->execute(array($idChefFamille));
+            $nb = $prepare->rowCount();
+            $prepare->closeCursor();
+            return $nb;
+        } catch (\PDOException $es) {
+            echo $es->getMessage();
+        }
+    }
+
+    static function updateInfoFamille(\PDO $pdo,$AdresseFamille,$CodePostal,$Ville,$CodePays,$Telephone,$Email,$IdQuartier,$IdChefFamille){
+        try {
+            $statement = $pdo->prepare('UPDATE famille SET AdresseFamille= ?, CodePostal= ?, Ville= ? ,CodePays= ?, Telephone= ?, Email= ?, IdQuartier = ? WHERE IdChefFamille= ? ');
+            $statement->execute(array($AdresseFamille,$CodePostal,$Ville,$CodePays,$Telephone,$Email,$IdQuartier,$IdChefFamille));
+            $statement->closeCursor();
+            $nb = $statement->rowCount();
+            return $nb;
+        } catch (\PDOException $ex) {
+            return $ex->getMessage();
+        }
+    }
+
+    static function loadFamilleById(\PDO $pdo,$IdChefFamille){
+        try {
+            $statement = $pdo->prepare('SELECT * FROM famille WHERE IdChefFamille = ?');
+            $statement->execute(array($IdChefFamille));
+            $famille = array();
+            $i = 0;
+            while ($table = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                $famille[$i] = new Famille($table['AdresseFamille'], $table['CodePays'], $table['CodePostal'], $table['Email'], $table['IdChefFamille'], $table['IdFamille'], $table['IdQuartier'], $table['Telephone'], $table['Ville']);
+                $i++;
+            }
+            $statement->closeCursor();
+            return $famille;
+        } catch (\Exception $ex) {
+        }
+
+    }
 } 

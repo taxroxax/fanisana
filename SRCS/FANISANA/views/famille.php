@@ -93,15 +93,25 @@ include_once "header.php";?>
                                                     </tr>
                                                     <tbody>
                                                     <?php foreach ($listFamille as $l) : ?>
+
                                                         <tr>
-                                                            <td><?php echo $l->getIdChefFamille(); ?></td>
+                                                            <td><a href="new_famille.php?idChef=<?php echo $l->getIdChefFamille(); ?>"><?php echo $l->getIdChefFamille(); ?>
+                                                                </a></td>
                                                             <td><?php echo $l->getAdresseFamille(); ?></td>
                                                             <td class="hidden-xs" ><?php echo $l->getCodePostal() ;  ?></td>
                                                             <td class="hidden-xs" ><?php echo $l->getVille();  ?></td>
                                                             <td class="hidden-xs" ><?php echo $l->getCodePays();  ?></td>
                                                             <td class="hidden-xs" ><?php echo $l->getTelephone();  ?></td>
                                                             <td class="hidden-xs" ><?php echo $l->getEmail();  ?></td>
-                                                            <td class="hidden-xs" ><?php echo 'FARITRA - '. $l->getIdQuartier();  ?></td>
+                                                            <td class="hidden-xs" >
+                                                                <?php
+                                                                if ($l->getIdQuartier() == null){
+                                                                    echo 'FARITRA - ?';
+                                                                }else{
+                                                                echo 'FARITRA - '. $l->getIdQuartier();
+                                                                }
+                                                                ?>
+                                                            </td>
                                                         </tr>
                                                     <?php endforeach;?>
                                                     </tbody>

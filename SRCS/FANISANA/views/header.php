@@ -40,7 +40,9 @@
     <link rel="stylesheet" href="assets/css/colorpicker.css" />
 
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
+    <link rel="stylesheet" href="assets/css/ace.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
     <![endif]-->
 
     <!-- inline styles related to this page -->
@@ -157,7 +159,7 @@
 
                     <ul class="submenu">
                         <li>
-                            <a href="new_famille.php">
+                            <a href="#">
                                 <i class="icon-double-angle-right"></i>
                                 Hanampy
                             </a>

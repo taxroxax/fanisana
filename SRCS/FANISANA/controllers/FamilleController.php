@@ -19,4 +19,9 @@ class FamilleController {
         $list = \models\Famille::LoadFamille($pdo);
         return $list;
     }
+    static function LoadFamilleById($IdChefFamille){
+        $pdo = \App\Config::getInstance()->getPdo();
+        $list = \models\Famille::loadFamilleById($pdo,$IdChefFamille);
+        return $list;
+    }
 } 
