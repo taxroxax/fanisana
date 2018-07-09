@@ -23,7 +23,7 @@ class MembreController {
         $option = "";
         foreach (\models\Membre::LoadMembre($pdo) as $membre) :
 
-            $option .= "<option value=" . $membre->getIdMembre() . ">".$membre->getNomMembre() . "</option>";
+            $option .= "<option value=" . $membre->getIdMembre() . ">".$membre->getNomMembre() . ' ' .$membre->getPrenomMembre(). "</option>";
 
         endforeach;
         print $option;
