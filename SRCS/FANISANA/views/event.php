@@ -7,7 +7,12 @@
  */
 include_once "header.php";?>
 
-<div class="main-container">
+<?php
+require(dirname(__DIR__).'\controllers\EventCategorieController.php');
+$list = \controllers\EventCategorieController::LoadEventCategorie();
+?>
+
+<div class="main-content">
     <div class="breadcrumb" id="breadcrumbs">
         <script type="text/javascript">
             try {
@@ -32,8 +37,51 @@ include_once "header.php";?>
                     Lisitry ny hetsika
                 </h1>
             </a>
-        </div>
+        </div><!--page header-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4>&nbsp;&nbsp;&nbsp;</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="icon-chevron-up"></i>
+                                    </a>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <?php if(isset($list) && !empty($list)) : ?>
 
+                                            <div class="table-responsive">
+                                                <table id="table_liste_categorie" class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Laharana </th>
+                                                        <th>Anarana</th>
+                                                    </tr>
+                                                    <tbody>
+                                                    <?php foreach ($list as $l) : ?>
+                                                        <tr>
+                                                            <td><?php echo $l->getIdEventCateg(); ?></td>
+                                                            <td><?php echo $l->getLibelleEventCategorie(); ?></td>
+                                                        </tr>
+                                                    <?php endforeach;?>
+                                                    </tbody>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

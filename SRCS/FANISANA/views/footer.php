@@ -86,6 +86,15 @@
                 ]
             });
 
+            var oTable3 = $('#table_liste_categorie').dataTable({
+                "aoColumns": [
+                    {"bSortable": false},
+                    {"bSortable": false}
+                ]
+            });
+
+
+
             $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
                 $(this).prev().focus();
             });

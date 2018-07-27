@@ -45,20 +45,24 @@ if($action == 'Tehirizina'){
         );
         $i++;
     }
+    //save membre and ad new famille
     foreach ($tmp as $data){
-        if($chef = 1 ){
+        if( $tmp[$j]['chefFamille'] != null ){
             \models\Famille::initializeFamille($pdo,$tmp[$j]['num']);
         }
         $nb = \models\Membre::saveMembre($pdo,$tmp[$j]['num'],$tmp[$j]['NomMembre'],$tmp[$j]['PrenomMembre'],$tmp[$j]['DateNaissance'],$tmp[$j]['LieuNaissance'],$tmp[$j]['GenderMembre'],$tmp[$j]['chefFamille']);
+
         $j++;
     }
 
     if($nb > 0){
         $success = " <script type=\"text/javascript\">document.location = \"../views/membre.php?message=Voaray ho mpikambana\";</script>";
         print $success;
+    }else{
+        $echec = " <script type=\"text/javascript\">document.location = \"../views/membre.php?message=Tsy tafiditra ho mpikambana\";</script>";
+        print $echec;
     }
 
+
 }
-
-
 

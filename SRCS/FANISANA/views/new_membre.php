@@ -20,7 +20,10 @@ include_once "header.php";?>
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
                 $(wrapper).append('<div class="widget-main"><div class="table-responsive"><table id="" class="table table-striped table-bordered table-hover"><thead><tr><th>N° Karatra</th><th>Anarana sy Fanampiny</th><th>Taona,Toerana Nahaterahana</th><th>L / V</th></tr><tbody><tr><td><input required="required" class="col-xs-8 col-sm-11" id="NumeroMembre" name="NumeroMembre[]" class="input-mask-idmembre" type="text" placeholder="Laharan-karatra vaovao"><br><br>Loham-pianakaviana : <select class="" name="chefFamille[]"><option value="non">Tsia</option><option value="oui" >Eny</option></select></td><td><input required="required" class="col-xs-8 col-sm-11" id="NomMembre" name="NomMembre[]" type="text" placeholder="Anarana" ><br><br><input required="required" class="col-xs-8 col-sm-11" id="PrenomMembre" name="PrenomMembre[]" type="text" placeholder="Fanampiny"></td><td><div style="width: 76%"><div class="row"><div class="col-xs- col-sm-11"><div class="input-group"><input required="required" name="datenaiss_membre[]"  placeholder="Nahaterahana" class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" /><span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span></div></div></div></div><br><input required="required" class="col-xs-8 col-sm-11" style="width: 70%" id="LieuNaissance" name="LieuNaissance[]" type="text" placeholder="Toerana Nahaterahana"></td><td><select required="required" id="GenderMembre" name="GenderMembre[]" class="form-control" id="form-field-select-1"><option value="Lahy">Lahy</option><option value="Vavy">Vavy</option><select></td></tr></tbody></thead></table></div><a href="#" class="remove_field btn btn-info">Manala</a></div>'); //add input box
-            }
+                $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+                    $(this).prev().focus();
+                });
+            }s
         });
 
         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
@@ -111,14 +114,6 @@ include_once "header.php";?>
                                                         </div><br>
                                                         <input required="required" class="col-xs-8 col-sm-11" style="width: 70%" id="LieuNaissance" name="LieuNaissance[]" type="text" placeholder="Toerana Nahaterahana"></td>
                                                     <td>
-<!--                                                        <label>-->
-<!--                                                            <input id="GenderMembre" name="GenderMembre[]" type="radio" class="ace" />-->
-<!--                                                            <span class="lbl">Lahy</span>-->
-<!--                                                        </label><br><br>-->
-<!--                                                        <label>-->
-<!--                                                            <input id="GenderMembre" name="GenderMembre[]" type="radio" class="ace" />-->
-<!--                                                            <span class="lbl">Vavy</span>-->
-<!--                                                        </label>-->
                                                         <select required="required" id="GenderMembre" name="GenderMembre[]" class="form-control" id="form-field-select-1">
                                                             <option value="Lahy">Lahy</option>
                                                             <option value="Vavy">Vavy</option>

@@ -13,15 +13,21 @@ include_once '../models/Membre.php';
 class MembreController {
     static function LoadAllMembre(){
         $pdo = \App\Config::getInstance()->getPdo();
-        $list = \models\Membre::LoadMembre($pdo);
+        $list = \models\Membre::LoadMembre($pdo,null);
         return $list;
     }
+    static function LoadMembreByIdFamille($idFamille){
+        $pdo = \App\Config::getInstance()->getPdo();
+        $list = \models\Membre::loadMembreByIdFamille($pdo,$idFamille);
+        return $list;
+    }
+
 
     static function loadOptionMembre()
     {
         $pdo = \App\Config::getInstance()->getPdo();
         $option = "";
-        foreach (\models\Membre::LoadMembre($pdo) as $membre) :
+        foreach (\models\Membre::LoadMembre($pdo,1) as $membre) :
 
             $option .= "<option value=" . $membre->getIdMembre() . ">".$membre->getNomMembre() . ' ' .$membre->getPrenomMembre(). "</option>";
 

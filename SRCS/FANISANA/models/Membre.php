@@ -179,9 +179,14 @@ class Membre {
     }
 
 
-    static function LoadMembre(\PDO $pdo){
+    static function LoadMembre(\PDO $pdo, $pCheckNull = null){
+
         try {
-            $statement = $pdo->prepare('SELECT * FROM membre');
+            if ($pCheckNull != null){
+                $statement = $pdo->prepare('SELECT * FROM membre WHERE IdFamille IS NULL');
+            }else{
+                $statement = $pdo->prepare('SELECT * FROM membre');
+            }
             $statement->execute();
             $membre = array();
             $i = 0;
@@ -231,5 +236,21 @@ class Membre {
         }
     }
 
+    static function loadMembreByIdFamille(\PDO $pdo, $idFamille){
+        try {
+            $statement = $pdo->prepare('SELECT * FROM membre WHERE IdFamille = ?');
+            $statement->execute(array($idFamille));
+            $membre = array();
+            $i = 0;
+            while ($table = $statement->fetch(\PDO::FETCH_ASSOC)){
+                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre']);
+                $i++;
+            }
+            $statement->closeCursor();
+            return $membre;
+        }catch (\Exception $ex){
+            echo $ex->getMessage();
+        }
+    }
 
 } 

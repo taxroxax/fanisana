@@ -60,14 +60,14 @@ include_once "header.php";?>
                                         </span>
 
                                     <?php } ?>
-                                    <span class="label label-lg label-success arrowed-right">
+                                   <!-- <span class="label label-lg label-success arrowed-right">
                                                             <i class="icon-warning-sign bigger-120"></i>
                                                             Hanampy fianakaviana
                                         </span>
                                     <a href="new_famille.php" class="btn btn-xs btn-light">
                                         <i class="icon-plus-sign bigger-120"></i>
                                         Vaovao
-                                    </a>&nbsp;
+                                    </a>&nbsp;-->
 
                                     <a href="#" data-action="collapse">
                                         <i class="icon-chevron-up"></i>
