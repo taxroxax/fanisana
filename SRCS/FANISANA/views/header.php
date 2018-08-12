@@ -57,6 +57,11 @@
     <script src="assets/js/html5shiv.js"></script>
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
+    <?php
+    require(dirname(__DIR__).'\controllers\EventCategorieController.php');
+    $listEvent = \controllers\EventCategorieController::LoadEventCategorie();
+    ?>
+
 </head>
 <body>
 <div class="navbar navbar-default" id="navbar">
@@ -206,20 +211,15 @@
                         <b class="arrow icon-angle-down"></b>
                     </a>
                     <ul class="submenu">
+
+                        <?php foreach($listEvent as $element): ?>
                         <li>
-                            <a href="#">
+                            <a href="participate_event.php?id_event=<?php echo $element->getIdEventCateg(); ?>&name_event=<?php echo $element->getLibelleEventCategorie(); ?>">
                                 <i class="icon-double-angle-right"></i>
-                                Hetsika vaovao
+                                <?php echo $element->getLibelleEventCategorie(); ?>
                             </a>
                         </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="icon-double-angle-right"></i>
-                                Handray anjara
-                            </a>
-                        </li>
-
+                        <?php endforeach;?>
                         <li>
                             <a href="event.php">
                                 <i class="icon-double-angle-right"></i>

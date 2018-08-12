@@ -6,12 +6,12 @@
  * Time: 20:02
  */
 ?>
-<script src="../../../../ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!--<script src="../../../../ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
 
 <!-- <![endif]-->
 
 <!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
 <![endif]-->
 
 <!--[if !IE]> -->
@@ -53,7 +53,7 @@
 <script src="assets/js/flot/jquery.flot.pie.min.js"></script>
 <script src="assets/js/flot/jquery.flot.resize.min.js"></script>
 <script src="assets/js/date-time/bootstrap-datepicker.min.js"></script>
-<!--    <script src="assets/js/jquery.maskedinput.min.js"></script>-->
+<script src="assets/js/jquery.maskedinput.min.js"></script>
 
 <!-- ace scripts -->
 
@@ -86,9 +86,19 @@
                 ]
             });
 
+            var oTable3 = $('#table_liste_categorie').dataTable({
+                "aoColumns": [
+                    {"bSortable": false},
+                    {"bSortable": false}
+                ]
+            });
+
+
+
             $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
                 $(this).prev().focus();
             });
+
 
             $(".chosen-select").chosen();
             $('#chosen-multiple-style').on('click', function(e){
@@ -97,11 +107,25 @@
                 if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
                 else $('#form-field-select-4').removeClass('tag-input-style');
             });
-
-            $.mask.definitions['~']='[+-]';
-            $('.input-mask-idmembre').mask('999999');
         })
 </script>
+
+<script src="assets/js/custom_js/actionControllerCustom.js"></script>
+<script type="text/javascript">
+    $("#form-categ-submit").on('click', function () {
+        console.log(sendData());
+    })
+
+    $("#send_event").on('click', function (){
+        console.log(sendIdEventCategorie());
+    })
+
+
+    $("#form-evenement-submit").on('click', function (){
+        console.log(sendInfoEvent());
+    })
+</script>
+
 </body>
 
 <!-- Mirrored from 192.69.216.111/themes/preview/ace/ by HTTrack Website Copier/3.x [XR&CO'2010], Thu, 14 Nov 2013 12:45:02 GMT -->

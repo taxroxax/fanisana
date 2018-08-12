@@ -28,7 +28,7 @@ $phone =(isset($_POST['phone']) && !empty($_POST['phone'])) ? $_POST['phone'] : 
 $mail =(isset($_POST['mail']) && !empty($_POST['mail'])) ? $_POST['mail'] : '';
 $membre =(isset($_POST['membre']) && !empty($_POST['membre'])) ? $_POST['membre'] : '';
 $idfamille =(isset($_POST['idfamille']) && !empty($_POST['idfamille'])) ? $_POST['idfamille'] : '';
-
+$count = 0;
 if($action == 'Tehirizina'){
         $pdo = \App\Config::getInstance()->getPdo();
         $nb = \models\Famille::updateInfoFamille($pdo,$adresse,$codepostale,$ville,$codepays,$phone,$mail,$quartier,$idChef);
@@ -41,6 +41,9 @@ if($action == 'Tehirizina'){
 
     if ($nb > 0) {
         $success = " <script type=\"text/javascript\">document.location = \"../views/famille.php?message=Voatahiry\";</script>";
+        print $success;
+    }else{
+        $success = " <script type=\"text/javascript\">document.location = \"../views/famille.php?message=Tsy Voatahiry\";</script>";
         print $success;
     }
 }

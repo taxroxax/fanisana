@@ -10,6 +10,7 @@ require(dirname(__DIR__).'\controllers\MembreController.php');
 
 $listFamille = \controllers\FamilleController::LoadAllFamille();
 
+
 $idFamille = null;
 $idChef = "";
 if($_GET){
@@ -19,7 +20,18 @@ $loadFamilleById = \controllers\FamilleController::LoadFamilleById($idChef);
 
 foreach($loadFamilleById as $famille){
     $idFamille = $famille->getIdFamille();
+    $AdresseFamille = $famille->getAdresseFamille();
+    $CodePays = $famille->getCodePays();
+    $CodePostal = $famille->getCodePostal();
+    $Email = $famille->getEmail();
+    $IdQuartier = $famille->getIdQuartier();
+    $Telephone = $famille->getTelephone();
+    $Ville = $famille->getVille();
+
 }
+
+$listMembreByIdFamille = \controllers\MembreController::LoadMembreByIdFamille($idFamille);
+
 include_once "header.php";?>
 
 <div class="main-content">
@@ -44,7 +56,7 @@ include_once "header.php";?>
         <div class="page-header">
             <a href="#">
                 <h1>
-                    Fianakaviana laharana faha : <?php echo $idFamille;  ?>
+                    Fianakaviana <?php  echo $idFamille;  ?>
                 </h1>
             </a>
         </div><!-- /.page-header -->
@@ -92,12 +104,12 @@ include_once "header.php";?>
                                                                 <?php \controllers\QuartierController::loadOptionQuartier(); ?>
                                                                 <select>
                                                         </td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="adresse" name="adresse" class="input-mask-id" type="text" placeholder="Adiresy"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="ville" name="ville" class="input-mask-id" type="text" placeholder="Tanana"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="codepostale" name="codepostale" class="input-mask-id" type="text" placeholder="kaody postaly"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="codepays" name="codepays" class="input-mask-id" type="text" placeholder="Toerana"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="phone" name="phone" class="input-mask-id" type="text" placeholder="Finday"></td>
-                                                        <td><input required="required" class="col-xs-8 col-sm-11" id="mail" name="mail" class="input-mask-id" type="text" placeholder="Mailaka"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" value="<?php echo $AdresseFamille; ?>" id="adresse" name="adresse" class="input-mask-id" type="text" placeholder="Adiresy"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" value="<?php echo $Ville; ?>" id="ville" name="ville" class="input-mask-id" type="text" placeholder="Tanana"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" value="<?php echo $CodePostal; ?>" id="codepostale" name="codepostale" class="input-mask-id" type="text" placeholder="kaody postaly"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" value="<?php echo $CodePays; ?>" id="codepays" name="codepays" class="input-mask-id" type="text" placeholder="Toerana"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" value="<?php echo  $Telephone; ?>" id="phone" name="phone" class="input-mask-id" type="text" placeholder="Finday"></td>
+                                                        <td><input required="required" class="col-xs-8 col-sm-11" value="<?php echo $Email; ?>" id="mail" name="mail" class="input-mask-id" type="text" placeholder="Mailaka"></td>
 
                                                     </tr>
                                                     </tbody>
@@ -150,6 +162,40 @@ include_once "header.php";?>
             </div>
         </div>
         </form>
+
+        <?php $listMembreParFamille = (isset($listMembreByIdFamille) && !empty($listMembreByIdFamille)) ? $listMembreByIdFamille : 0;?>
+        <?php if($listMembreParFamille > 0) : ?>
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-11">
+                    <div class="row">
+                        <div class="col-sm-12" >
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <table border="1" style="border-collapse ; width: 100%;" >
+                                            <thead>
+                                                <th width="20%">Laharana</th>
+                                                <th> Anarana </th>
+                                            </thead>
+                                            <tbody>
+                                            <?php foreach($listMembreParFamille as $l): ?>
+                                            <tr><td width="20%"><?php echo $l->getNumeroMembre();?></td><td><?php echo $l->getNomMembre().' '. $l->getPrenomMembre(); ?></td></tr>
+                                            <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php endif; ?>
     </div>
 </div>
 
