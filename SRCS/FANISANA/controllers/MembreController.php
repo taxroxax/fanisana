@@ -34,4 +34,15 @@ class MembreController {
         endforeach;
         print $option;
     }
+
+    static function loadOptionMembreByGender($gender){
+        $pdo = \App\Config::getInstance()->getPdo();
+        $option = "";
+        foreach (\models\Membre::loadMembreBySexe($pdo,$gender) as $membre) :
+
+            $option .= "<option value=" . $membre->getIdMembre() . ">".$membre->getNomMembre() . ' ' .$membre->getPrenomMembre(). "</option>";
+
+        endforeach;
+        print $option;
+    }
 } 

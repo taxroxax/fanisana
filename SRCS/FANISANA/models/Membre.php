@@ -253,4 +253,21 @@ class Membre {
         }
     }
 
+
+    static function loadMembreBySexe(\PDO $pdo, $gender){
+        try {
+            $statement = $pdo->prepare('SELECT * FROM membre WHERE GenderMembre = ?');
+            $statement->execute(array($gender));
+            $membre = array();
+            $i = 0;
+            while ($table = $statement->fetch(\PDO::FETCH_ASSOC)){
+                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre']);
+                $i++;
+            }
+            $statement->closeCursor();
+            return $membre;
+        }catch (\Exception $ex){
+            echo $ex->getMessage();
+        }
+    }
 } 

@@ -67,4 +67,16 @@ class EventCategorie {
 
         }
     }
+
+    public static function SaveEventCategorie(\PDO $pdo,$libelle_categorie){
+        try{
+            $prepare = $pdo->prepare('INSERT INTO event_categorie(LibelleEventCategorie) VALUES(?)');
+            $prepare->execute(array($libelle_categorie));
+            $nb = $prepare->rowCount();
+            $prepare->closeCursor();
+            return $nb;
+        } catch (\PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
 } 
