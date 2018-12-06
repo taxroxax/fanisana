@@ -14,29 +14,118 @@ include_once "header.php";?>
         var wrapper         = $(".input_fields_wrap"); //Fields wrapper
         var add_button      = $(".add_field_button"); //Add button ID
 
+        var year_of_date = new Date();
+        var year_date = year_of_date.getFullYear();
+
+        var pattern = "\(([0-9]{4})\)[0-9]{4}";
+
         var x = 0; //initlal text box count
         $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="widget-main"><div class="table-responsive"><table id="" class="table table-striped table-bordered table-hover"><thead><tr><th>N° Karatra</th><th>Anarana sy Fanampiny</th><th>Taona,Toerana Nahaterahana</th><th>L / V</th></tr><tbody><tr><td><input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2 " id="NumeroMembre" name="NumeroMembre[]"  class="input-mask-idmembre" type="text" placeholder="Laharan-karatra vaovao"><br><br>Loham-pianakaviana : <select class="" name="chefFamille[]"><option value="non">Tsia</option><option value="oui" >Eny</option></select></td><td><input required="required" class="col-xs-8 col-sm-11" id="NomMembre" name="NomMembre[]" type="text" placeholder="Anarana" ><br><br><input required="required" class="col-xs-8 col-sm-11" id="PrenomMembre" name="PrenomMembre[]" type="text" placeholder="Fanampiny"></td><td><div style="width: 76%"><div class="row"><div class="col-xs- col-sm-11"><div class="input-group"><input required="required" name="datenaiss_membre[]"  placeholder="Nahaterahana" class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" /><span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span></div></div></div></div><br><input required="required" class="col-xs-8 col-sm-11" style="width: 70%" id="LieuNaissance" name="LieuNaissance[]" type="text" placeholder="Toerana Nahaterahana"></td><td><select required="required" id="GenderMembre" name="GenderMembre[]" class="form-control" id="form-field-select-1"><option value="Lahy">Lahy</option><option value="Vavy">Vavy</option><select></td></tr></tbody></thead></table></div><a href="#" class="remove_field btn btn-info">Manala</a></div>'); //add input box
+                var NomMembre = "NomMembre" + x;
+                var PrenomMembre = "PrenomMembre" + x;
+                var NumeroMembre = "NumeroMembre" + x;
+                $(wrapper).append('<div class="widget-main">' +
+                    '<div class="table-responsive">' +
+                    '<table id="" class="table table-striped table-bordered table-hover">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>N° Karatra</th>' +
+                    '<th>Anarana sy Fanampiny</th>' +
+                    '<th>Taona,Toerana Nahaterahana</th>' +
+                    '<th>L / V</th>' +
+                    '</tr>' +
+                    '<tbody>' +
+                    '<tr>' +
+                    '<td>' +
+                    '<input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2 " autocomplete="off" id="' + NumeroMembre + '" onkeyup="javascript:validateNumber(this.id, this.value);"  name="NumeroMembre[]" class="input-mask-idmembre" type="text" placeholder="Laharan-karatra vaovao" required pattern = "' + pattern + '" maxlength = "10" value="(' + year_date + ')">' +
+                    '<br><br>Loham-pianakaviana : <select class="" name="chefFamille[]"><option value="non">Tsia</option><option value="oui" >Eny</option></select>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input required="required" class="col-xs-8 col-sm-11" autocomplete="off" id=" ' + NomMembre +'"  name="NomMembre[]" type="text" placeholder="Anarana" onkeyup="javascript:capitalizeName(this.id, this.value);" >' +
+                    '<br><br>' +
+                    '<input required="required" class="col-xs-8 col-sm-11" autocomplete="off" id=" ' + PrenomMembre + '" name="PrenomMembre[]" type="text" placeholder="Fanampiny" onkeyup="javascript:capitalize(this.id, this.value);">' +
+                    '</td>' +
+                    '<td><div style="width: 76%"><div class="row"><div class="col-xs- col-sm-11"><div class="input-group">' +
+                    '<input required="required" autocomplete="off" name="datenaiss_membre[]"  placeholder="Nahaterahana" class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />' +
+                    '<span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>' +
+                    '</div></div></div></div>' +
+                    '<br>' +
+                    '<input required="required" class="col-xs-8 col-sm-11" style="width: 70%" autocomplete="off" id="LieuNaissance" name="LieuNaissance[]" type="text" placeholder="Toerana Nahaterahana">' +
+                    '</td>' +
+                    '<td><select required="required" id="GenderMembre" name="GenderMembre[]" class="form-control" id="form-field-select-1"><option value="Lahy">Lahy</option><option value="Vavy">Vavy</option><select>' +
+                    '</td>' +
+                    '</tr>' +
+                    '</tbody>' +
+                    '</thead>' +
+                    '</table>' +
+                    '</div>' +
+                    '<a href="#" class="remove_field btn btn-info">Manala</a>' +
+                    '</div>'); //add input box
                 $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
                     $(this).prev().focus();
                 });
-                $.mask.definitions['~']='[+-]';
-                $('.input-mask-phone-2').mask('(9999) 9999');
             }
         });
 
         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
             e.preventDefault(); $(this).parent('.widget-main').remove(); x--;
         });
-
-        $.mask.definitions['~']='[+-]';
-        $('.input-mask-phone-2').mask('(9999) 9999');
     });
 </script>
+<script type="text/javascript">
+    function capitalize(textboxid, texte){
+        var newText =  texte.charAt(0).toUpperCase();
 
+        for (var i=0 ; i<texte.length-1 ; i++){
+            if (texte.charAt(i).match(/\s/) && texte.charAt(i+1).match(/[a-z]/)){
+                newText += texte.charAt(i+1).toUpperCase(); } else { newText += texte.charAt(i+1); }
+        }
+        document.getElementById(textboxid).value = newText;
+    }
+
+    function capitalizeName(NomMembre,texte){
+        var newNameFormat = texte.toUpperCase();
+        document.getElementById(NomMembre).value = newNameFormat;
+    }
+
+   function validateNumber(numeroMembreId, texte){
+       //validate numero carte
+       if (texte != null){
+            if (validateNumCart(texte) == false){
+                $("#"+numeroMembreId).addClass('error');
+            }else{
+                $("#"+numeroMembreId).removeClass('error');
+            }
+       }
+       if(texte.length == 10){
+           console.log('send data');
+           var server = $("#server").val();
+           console.log(server);
+           $.ajax({
+               url: "http://" + server + "/ANOSIZATO/srcs/FANISANA/controllers/ActionMembreController.php",
+               data: "action=get_numero",
+               type: 'POST',
+               success: function (data) {
+                   var numeros = JSON.parse(data);
+                   if(numeros.indexOf(texte) !== -1){
+                        $('#'+numeroMembreId).val('Efa misy, soloy azafady');
+                   }
+               }, error: function (xhr, status, error) {
+                   console.log(status);
+               }
+           });
+       }
+   }
+
+    function validateNumCart(numCart) {
+        var re = /^\(([0-9]{4})\)[0-9]{4}/;
+        return re.test(numCart);
+    }
+
+</script>
 <div class="main-content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -68,6 +157,7 @@ include_once "header.php";?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <div class="widget-box">
+                            <input type="hidden" id="server" value="<?php echo $_SERVER['HTTP_HOST']; ?>">
                             <form name="hanampy" action="../controllers/ActionMembreController.php" method="post">
                             <div class="widget-header">
                                 <h4>&nbsp;&nbsp;&nbsp;</h4>
@@ -92,7 +182,7 @@ include_once "header.php";?>
                                             <table id="" class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                 <tr>
-                                                    <th>N° Karatra</th>
+                                                    <th>N° Karatra : (<?php echo date("Y"); ?>)9999</th>
                                                     <th>Anarana sy Fanampiny</th>
                                                     <th>Taona,Toerana Nahaterahana</th>
                                                     <th>L / V</th>
@@ -100,17 +190,17 @@ include_once "header.php";?>
                                                 <tbody>
                                                 <tr>
                                                     <td>
-                                                        <input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2 " id="NumeroMembre" name="NumeroMembre[]" type="text" placeholder="Laharan'ny karatra vaovao"><br><br>
+                                                        <input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2" autocomplete="off" id="NumeroMembre" onkeyup="javascript:validateNumber(this.id, this.value);" name="NumeroMembre[]" required pattern = "\(([0-9]{4})\)[0-9]{4}" maxlength = "10" type="text" placeholder="Laharan'ny karatra vaovao" value="(<?php echo date("Y");?>)" ><br><br>
                                                         Loham-pianakaviana : <select class="" name="chefFamille[]"><option value="non">Tsia</option><option value="oui" >Eny</option></select>
                                                     </td>
-                                                    <td><input required="required" class="col-xs-8 col-sm-11" id="NomMembre" name="NomMembre[]" type="text" placeholder="Anarana" ><br><br>
-                                                        <input required="required" class="col-xs-8 col-sm-11" id="PrenomMembre" name="PrenomMembre[]" type="text" placeholder="Fanampiny"></td>
+                                                    <td><input required="required" class="col-xs-8 col-sm-11" autocomplete="off" id="NomMembre" name="NomMembre[]" type="text" placeholder="Anarana" onkeyup="javascript:capitalizeName(this.id, this.value);"><br><br>
+                                                        <input required="required" class="col-xs-8 col-sm-11" autocomplete="off" id="PrenomMembre" name="PrenomMembre[]" type="text" placeholder="Fanampiny" onkeyup="javascript:capitalize(this.id, this.value);"></td>
                                                     <td>
                                                         <div style="width: 76%">
                                                             <div class="row">
                                                                 <div class="col-xs- col-sm-11">
                                                                     <div class="input-group">
-                                                                        <input required="required" name="datenaiss_membre[]"  placeholder="Nahaterahana" class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
+                                                                        <input required="required" autocomplete="off" name="datenaiss_membre[]"  placeholder="Nahaterahana" class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
                                                                                 <span class="input-group-addon">
                                                                                     <i class="icon-calendar bigger-110"></i>
                                                                                 </span>
@@ -118,7 +208,7 @@ include_once "header.php";?>
                                                                 </div>
                                                             </div>
                                                         </div><br>
-                                                        <input required="required" class="col-xs-8 col-sm-11" style="width: 70%" id="LieuNaissance" name="LieuNaissance[]" type="text" placeholder="Toerana Nahaterahana"></td>
+                                                        <input required="required" class="col-xs-8 col-sm-11" style="width: 70%" autocomplete="off" id="LieuNaissance" name="LieuNaissance[]" type="text" placeholder="Toerana Nahaterahana"></td>
                                                     <td>
                                                         <select required="required" id="GenderMembre" name="GenderMembre[]" class="form-control" id="form-field-select-1">
                                                             <option value="Lahy">Lahy</option>

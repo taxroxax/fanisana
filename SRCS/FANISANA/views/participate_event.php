@@ -44,18 +44,16 @@ require(dirname(__DIR__).'\controllers\MembreController.php');
         </div><!--page header-->
 <?php if($name_event== 'Mariazy'): ?>
     <form action="#" method="post" id="form_participate_event">
-        <div class="row">
-            <div class="col-xs-12">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="widget-box">
-                            <div class="widget-header">
+                            <div class="widget-header header-color-dark">
+                                <h6>
+                                    Ara-panjakana
+                                </h6>
+
                                 <div class="widget-toolbar">
                                     <div id="text-notif-error"></div>
-                                    <input type="hidden" id="server_ip" value="<?php echo $_SERVER['HTTP_HOST']; ?>">
-                                    <input type="hidden" id="action" name="action" value = "mariage">
-                                    <input type="hidden" id="name_event" name="name_event" value="<?php echo $name_event; ?>">
-                                    <input class="btn btn-xs btn-light" type="button" value="Tehirizina" id="form-evenement-submit">
                                     <a href="#" data-action="collapse">
                                         <i class="icon-chevron-up"></i>
                                     </a>
@@ -79,29 +77,54 @@ require(dirname(__DIR__).'\controllers\MembreController.php');
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="DateFiance">* Fisoratana: </label>
-                                            <input autocomplete="off" class="form-control col-xs-10 col-sm-1 date-picker" type="text" id="DateFiance" name="DateFiance" >
+                                            <label for="DateFiance">* Daty nisoratana: </label>
+                                            <input  required="required" autocomplete="off" class="form-control col-xs-10 col-sm-1 date-picker" type="text" id="DateFiance" name="DateFiance" >
                                         </div>
                                         <div>
-                                            <label for="date_event" >Fanamasinana: </label>
-                                            <input  autocomplete="off" class="form-control col-xs-10 col-sm-10 date-picker" type="text" id="date_event" name="date_event" >
-                                        </div>
-
-                                        <div>
-                                            <label for="place">Toerana nivadina : </label>
-                                            <input class="form-control" type="text" id="place" name="place" >
-                                        </div>
-                                        <div>
-                                            <label for="description">Fampahafantarana fohy</label>
-                                            <textarea class="form-control" id="description" name="description" placeholder="Fanamarihana"></textarea>
+                                            <br><br><br><br>
                                         </div>
                                     </div>
                                 </div>
                         </div>
                     </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-header header-color-dark">
+                                <h6>
+                                    Ara-pinoana
+                                </h6>
+                                <div class="widget-toolbar">
+                                    <div id="text-notif-error"></div>
+                                    <input type="hidden" id="server_ip" value="<?php echo $_SERVER['HTTP_HOST']; ?>">
+                                    <input type="hidden" id="action" name="action" value = "mariage">
+                                    <input type="hidden" id="name_event" name="name_event" value="<?php echo $name_event; ?>">
+                                    <input class="btn btn-xs btn-light" type="button" value="Tehirizina" id="form-evenement-submit">
+                                    <a href="#" data-action="collapse">
+                                        <i class="icon-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div>
+                                        <label for="date_event" >Daty nanamasinana: </label>
+                                        <input  required="required"  autocomplete="off" class="form-control col-xs-10 col-sm-10 date-picker" type="text" id="date_event" name="date_event" >
+                                    </div>
+
+                                    <div>
+                                        <label for="place">Toerana nivadina : </label>
+                                        <input class="form-control" type="text" id="place" name="place" >
+                                    </div>
+
+                                    <div>
+                                        <label for="description">Fampahafantarana fohy</label>
+                                        <textarea class="form-control" id="description" name="description" placeholder="Fanamarihana"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
     </form>
 <?php endif; ?>
 <?php if ($name_event != 'Mariazy'): ?>
@@ -115,7 +138,7 @@ require(dirname(__DIR__).'\controllers\MembreController.php');
                                 <div class="widget-toolbar">
                                     <div id="text-notif-error"></div>
                                     <input type="hidden" id="server_ip" value="<?php echo $_SERVER['HTTP_HOST']; ?>">
-                                    <input type="hidden" id="action" name="action" value = "mariage">
+                                    <input type="hidden" id="action" name="action" value = "others">
                                     <input type="hidden" id="name_event" name="name_event" value="<?php echo $name_event; ?>">
                                     <input class="btn btn-xs btn-light" type="button" value="Tehirizina" id="form-evenement-submit">
                                     <a href="#" data-action="collapse">
@@ -135,9 +158,9 @@ require(dirname(__DIR__).'\controllers\MembreController.php');
                                     </div>
                                     <div>
                                         <label for="date_event" >Datin'ny hetsika: </label>
-                                        <input  autocomplete="off" class="form-control col-xs-10 col-sm-10 date-picker" type="text" id="date_event" name="date_event" >
+                                        <input required="required"  autocomplete="off" class="form-control col-xs-10 col-sm-10 date-picker" type="text" id="date_event" name="date_event" >
                                     </div>
-                                    <input autocomplete="off" class="form-control col-xs-10 col-sm-1 date-picker" type="hidden" id="DateFiance" name="DateFiance" >
+                                    <input autocomplete="off" class="form-control col-xs-10 col-sm-1" type="hidden" id="DateFiance" name="DateFiance" value="" >
                                     <input type="hidden" id="vavy" name="vavy" value="1" >
 
                                     <div>

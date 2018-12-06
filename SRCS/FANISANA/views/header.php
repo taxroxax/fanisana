@@ -62,6 +62,13 @@
     $listEvent = \controllers\EventCategorieController::LoadEventCategorie();
     ?>
 
+    <style type="text/css">
+        .error {
+            border-color: red !important;
+            color: red !important;
+        }
+    </style>
+
 </head>
 <body>
 <div class="navbar navbar-default" id="navbar">

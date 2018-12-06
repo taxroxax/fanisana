@@ -16,14 +16,13 @@ if($_POST){
 }elseif($_GET){
     $action = $_GET['action'];
 }
-
-$chefFamille = $_POST['chefFamille'];
-$NumeroMembre = $_POST['NumeroMembre'];
-$NomMembre = $_POST['NomMembre'];
-$PrenomMembre = $_POST['PrenomMembre'];
-$datenaiss_membre = $_POST['datenaiss_membre'];
-$LieuNaissance = $_POST['LieuNaissance'];
-$GenderMembre = $_POST['GenderMembre'];
+$chefFamille = isset($_POST['chefFamille']) ? $_POST['chefFamille'] : "";
+$NumeroMembre = isset( $_POST['NumeroMembre']) ? $_POST['NumeroMembre'] : "";
+$NomMembre = isset( $_POST['NomMembre']) ? $_POST['NomMembre'] : "";
+$PrenomMembre = isset( $_POST['PrenomMembre']) ? $_POST['PrenomMembre'] : "";
+$datenaiss_membre = isset( $_POST['datenaiss_membre']) ? $_POST['datenaiss_membre'] : "";
+$LieuNaissance = isset( $_POST['LieuNaissance']) ? $_POST['LieuNaissance'] : "";
+$GenderMembre = isset( $_POST['GenderMembre']) ? $_POST['GenderMembre'] : "";
 
 if($action == 'Tehirizina'){
     $i = 0;
@@ -62,7 +61,49 @@ if($action == 'Tehirizina'){
         $echec = " <script type=\"text/javascript\">document.location = \"../views/membre.php?message=Tsy tafiditra ho mpikambana\";</script>";
         print $echec;
     }
+}
+if($action == "get_numero"){
+    $pdo = \App\Config::getInstance()->getPdo();
+    $membres =  \models\Membre::LoadMembre($pdo);
+    $data = [];
+    foreach($membres as $membre){
+        $data[] = $membre->getNumeroMembre();
+    }
+    print json_encode($data);
+}
+
+if ($action == "delete"){
+    $id_membre = "";
+    if(isset($_POST['id_membre']) and !empty($_POST['id_membre'])){
+        $id_membre = $_POST['id_membre'];
+        if(!empty($id_membre)){
+            $pdo = \App\Config::getInstance()->getPdo();
+            $nb = \models\Membre::deleteMembre($pdo, $id_membre);
+            if ($nb > 0) {
+                print 'danger';
+            }else{
+                print 'error';
+            }
+        }
+    }
+}
+
+if ($action == "edit"){
+    $id_membre_to_edit = "";
+    if(isset($_POST['id_membre_to_edit']) and !empty($_POST['id_membre_to_edit'])){
+        $id_membre_to_edit = $_POST['id_membre_to_edit'];
+        if(!empty($id_membre_to_edit)){
+            $pdo = \App\Config::getInstance()->getPdo();
+            $membres =  \models\Membre::loadInfoMembreById($pdo,$id_membre_to_edit);
+            $data = [];
+            foreach($membres as $membre){
+                $data['numero'] = $membre->getNumeroMembre();
+                $data['nom'] = $membre->getNomMembre();
+                $data['prenom'] = $membre->getPrenomMembre();
+            }
+            print json_encode($data);
+        }
+    }
 
 
 }
-

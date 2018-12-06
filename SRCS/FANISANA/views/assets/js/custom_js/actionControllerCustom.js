@@ -40,6 +40,7 @@ function sendIdEventCategorie(){
 }
 
 function sendInfoEvent() {
+    var action = $('#action').val();
     var id_categorie = $('#id_categorie').val();
     console.log(id_categorie);
     var server = $('#server_ip').val();
@@ -60,9 +61,10 @@ function sendInfoEvent() {
     console.log(DateFiance);
     $.ajax({
         url: "http://" + server + "/ANOSIZATO/srcs/FANISANA/controllers/ActionParticipateEvent.php",
-        data: "action=mariage&id_categorie=" + id_categorie + "&lahy=" + lahy + "&vavy=" + vavy + "&description=" + description + "&place=" + place + "&date_event=" + date_event + "&name_event=" + name_event + "&DateFiance=" + DateFiance,
+        data: "action=" + action + "&id_categorie=" + id_categorie + "&lahy=" + lahy + "&vavy=" + vavy + "&description=" + description + "&place=" + place + "&date_event=" + date_event + "&name_event=" + name_event + "&DateFiance=" + DateFiance,
         type: 'POST',
         success: function (data) {
+            console.log(data);
             if (data == 'Voatahiry') {
                 document.location = 'http://' + server + '/ANOSIZATO/srcs/FANISANA/views/participate_event.php';
             } else {
