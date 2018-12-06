@@ -19,13 +19,20 @@ if($_POST){
 if($action == 'Tehirizina'){
 
     $event_name =(isset($_POST['nom_categorie']) && !empty($_POST['nom_categorie'])) ? $_POST['nom_categorie'] : '';
-    $pdo = \App\Config::getInstance()->getPdo();
-    $nb =  \models\EventCategorie::SaveEventCategorie($pdo,$event_name);
-    if ($nb > 0) {
-        $success = " <script type=\"text/javascript\">document.location = \"../views/event.php?message=Voatahiry\";</script>";
-        print $success;
+
+    if(!empty($event_name)){
+        $pdo = \App\Config::getInstance()->getPdo();
+        $nb =  \models\EventCategorie::SaveEventCategorie($pdo,$event_name);
+        if ($nb > 0) {
+            $success = " <script type=\"text/javascript\">document.location = \"../views/event.php?message=Voatahiry\";</script>";
+            print $success;
+        }else{
+            $success = " <script type=\"text/javascript\">document.location = \"../views/event.php?message=Tsy Voatahiry\";</script>";
+            print $success;
+        }
     }else{
         $success = " <script type=\"text/javascript\">document.location = \"../views/event.php?message=Tsy Voatahiry\";</script>";
         print $success;
     }
+
 }

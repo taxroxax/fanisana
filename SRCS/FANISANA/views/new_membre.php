@@ -26,6 +26,7 @@ include_once "header.php";?>
                 x++; //text box increment
                 var NomMembre = "NomMembre" + x;
                 var PrenomMembre = "PrenomMembre" + x;
+                var NumeroMembre = "NumeroMembre" + x;
                 $(wrapper).append('<div class="widget-main">' +
                     '<div class="table-responsive">' +
                     '<table id="" class="table table-striped table-bordered table-hover">' +
@@ -39,7 +40,7 @@ include_once "header.php";?>
                     '<tbody>' +
                     '<tr>' +
                     '<td>' +
-                    '<input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2 " autocomplete="off" id="NumeroMembre"  name="NumeroMembre[]" class="input-mask-idmembre" type="text" placeholder="Laharan-karatra vaovao" required pattern = "' + pattern + '" maxlength = "10" value="(' + year_date + ')">' +
+                    '<input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2 " autocomplete="off" id="' + NumeroMembre + '" onkeyup="javascript:validateNumber(this.id, this.value);"  name="NumeroMembre[]" class="input-mask-idmembre" type="text" placeholder="Laharan-karatra vaovao" required pattern = "' + pattern + '" maxlength = "10" value="(' + year_date + ')">' +
                     '<br><br>Loham-pianakaviana : <select class="" name="chefFamille[]"><option value="non">Tsia</option><option value="oui" >Eny</option></select>' +
                     '</td>' +
                     '<td>' +
@@ -89,6 +90,41 @@ include_once "header.php";?>
         var newNameFormat = texte.toUpperCase();
         document.getElementById(NomMembre).value = newNameFormat;
     }
+
+   function validateNumber(numeroMembreId, texte){
+       //validate numero carte
+       if (texte != null){
+            if (validateNumCart(texte) == false){
+                $("#"+numeroMembreId).addClass('error');
+            }else{
+                $("#"+numeroMembreId).removeClass('error');
+            }
+       }
+       if(texte.length == 10){
+           console.log('send data');
+           var server = $("#server").val();
+           console.log(server);
+           $.ajax({
+               url: "http://" + server + "/ANOSIZATO/srcs/FANISANA/controllers/ActionMembreController.php",
+               data: "action=get_numero",
+               type: 'POST',
+               success: function (data) {
+                   var numeros = JSON.parse(data);
+                   if(numeros.indexOf(texte) !== -1){
+                        $('#'+numeroMembreId).val('Efa misy, soloy azafady');
+                   }
+               }, error: function (xhr, status, error) {
+                   console.log(status);
+               }
+           });
+       }
+   }
+
+    function validateNumCart(numCart) {
+        var re = /^\(([0-9]{4})\)[0-9]{4}/;
+        return re.test(numCart);
+    }
+
 </script>
 <div class="main-content">
     <div class="breadcrumbs" id="breadcrumbs">
@@ -121,6 +157,7 @@ include_once "header.php";?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <div class="widget-box">
+                            <input type="hidden" id="server" value="<?php echo $_SERVER['HTTP_HOST']; ?>">
                             <form name="hanampy" action="../controllers/ActionMembreController.php" method="post">
                             <div class="widget-header">
                                 <h4>&nbsp;&nbsp;&nbsp;</h4>
@@ -145,7 +182,7 @@ include_once "header.php";?>
                                             <table id="" class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                 <tr>
-                                                    <th>N° Karatra</th>
+                                                    <th>N° Karatra : (<?php echo date("Y"); ?>)9999</th>
                                                     <th>Anarana sy Fanampiny</th>
                                                     <th>Taona,Toerana Nahaterahana</th>
                                                     <th>L / V</th>
@@ -153,7 +190,7 @@ include_once "header.php";?>
                                                 <tbody>
                                                 <tr>
                                                     <td>
-                                                        <input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2 " autocomplete="off" id="NumeroMembre" name="NumeroMembre[]" required pattern = "\(([0-9]{4})\)[0-9]{4}" maxlength = "10" type="text" placeholder="Laharan'ny karatra vaovao" value="(<?php echo date("Y");?>)" ><br><br>
+                                                        <input required="required" class="col-xs-8 col-sm-11 form-control input-mask-phone-2" autocomplete="off" id="NumeroMembre" onkeyup="javascript:validateNumber(this.id, this.value);" name="NumeroMembre[]" required pattern = "\(([0-9]{4})\)[0-9]{4}" maxlength = "10" type="text" placeholder="Laharan'ny karatra vaovao" value="(<?php echo date("Y");?>)" ><br><br>
                                                         Loham-pianakaviana : <select class="" name="chefFamille[]"><option value="non">Tsia</option><option value="oui" >Eny</option></select>
                                                     </td>
                                                     <td><input required="required" class="col-xs-8 col-sm-11" autocomplete="off" id="NomMembre" name="NomMembre[]" type="text" placeholder="Anarana" onkeyup="javascript:capitalizeName(this.id, this.value);"><br><br>

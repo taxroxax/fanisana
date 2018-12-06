@@ -44,6 +44,7 @@
 <![endif]-->
 
 <script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="assets/js/jquery-ui-1.10.3.full.min.js"></script>
 <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
 <script src="assets/js/chosen.jquery.min.js"></script>
 <script src="assets/js/jquery.slimscroll.min.js"></script>
@@ -56,6 +57,7 @@
 <script src="assets/js/jquery.maskedinput.min.js"></script>
 
 <!-- ace scripts -->
+<!-- page specific plugin scripts -->
 
 <script src="assets/js/ace-elements.min.js"></script>
 <script src="assets/js/ace.min.js"></script>
@@ -73,7 +75,7 @@
             var oTable2 = $('#table_liste_membre').dataTable({
                 "aoColumns": [
                     {"bSortable": false},
-                    null,null,null,null,
+                    null,null,null,null,null,
                     {"bSortable": false}
                 ]
             });
@@ -107,11 +109,20 @@
                 if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
                 else $('#form-field-select-4').removeClass('tag-input-style');
             });
+
+            $('.dialogs,.comments').slimScroll({
+                height: '300px'
+            });
+
         })
 </script>
 
 <script src="assets/js/custom_js/actionControllerCustom.js"></script>
+
+<script src="assets/js/custom_js/deleteMemberAction.js"></script>
+
 <script type="text/javascript">
+
     $("#form-categ-submit").on('click', function () {
         console.log(sendData());
     })

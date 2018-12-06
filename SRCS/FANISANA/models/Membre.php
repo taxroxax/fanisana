@@ -20,8 +20,10 @@ class Membre {
     private $GenderMembre;
     private $StatusMembre;
     private $IdFamille;
+    private $Marie;
 
-    function __construct($DateNaissance, $GenderMembre, $IdFamille, $IdMembre, $LieuNaissance, $NomMembre, $NumeroMembre, $PrenomMembre, $StatusMembre)
+
+    function __construct($DateNaissance, $GenderMembre, $IdFamille, $IdMembre, $LieuNaissance, $NomMembre, $NumeroMembre, $PrenomMembre, $StatusMembre, $Marie)
     {
         $this->DateNaissance = $DateNaissance;
         $this->GenderMembre = $GenderMembre;
@@ -32,6 +34,7 @@ class Membre {
         $this->NumeroMembre = $NumeroMembre;
         $this->PrenomMembre = $PrenomMembre;
         $this->StatusMembre = $StatusMembre;
+        $this->Marie = $Marie;
     }
 
     /**
@@ -178,9 +181,25 @@ class Membre {
         return $this->StatusMembre;
     }
 
+    /**
+     * @param mixed $Marie
+     */
+    public function setMarie($Marie)
+    {
+        $this->Marie = $Marie;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMarie()
+    {
+        return $this->Marie;
+    }
+
+
 
     static function LoadMembre(\PDO $pdo, $pCheckNull = null){
-
         try {
             if ($pCheckNull != null){
                 $statement = $pdo->prepare('SELECT * FROM membre WHERE IdFamille IS NULL');
@@ -191,7 +210,7 @@ class Membre {
             $membre = array();
             $i = 0;
             while ($table = $statement->fetch(\PDO::FETCH_ASSOC)){
-                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre']);
+                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre'],$table['Marie']);
                 $i++;
             }
             $statement->closeCursor();
@@ -200,6 +219,7 @@ class Membre {
 
         }
     }
+
 
     static public function saveMembre(\PDO $pdo,$NumeroMembre,$NomMembre,$PrenomMembre,$DateNaissance,$LieuNaissance,$GenderMembre,$chefFamille){
         try {
@@ -236,6 +256,33 @@ class Membre {
         }
     }
 
+
+    static function deleteMembre(\PDO $pdo, $IdMembre){
+        try {
+            $statement = $pdo->prepare('DELETE FROM  membre WHERE IdMembre= ? ');
+            $statement->execute(array($IdMembre));
+            $statement->closeCursor();
+            $nb = $statement->rowCount();
+            return $nb;
+        } catch (\PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+
+    static function updateMarieOui(\PDO $pdo, $IdMembre){
+        try {
+            $statement = $pdo->prepare('UPDATE membre SET Marie= "O" WHERE IdMembre= ? ');
+            $statement->execute(array($IdMembre));
+            $statement->closeCursor();
+            $nb = $statement->rowCount();
+            return $nb;
+        } catch (\PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+
     static function loadMembreByIdFamille(\PDO $pdo, $idFamille){
         try {
             $statement = $pdo->prepare('SELECT * FROM membre WHERE IdFamille = ?');
@@ -243,7 +290,7 @@ class Membre {
             $membre = array();
             $i = 0;
             while ($table = $statement->fetch(\PDO::FETCH_ASSOC)){
-                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre']);
+                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre'],$table['Marie']);
                 $i++;
             }
             $statement->closeCursor();
@@ -256,12 +303,29 @@ class Membre {
 
     static function loadMembreBySexe(\PDO $pdo, $gender){
         try {
-            $statement = $pdo->prepare('SELECT * FROM membre WHERE GenderMembre = ?');
+            $statement = $pdo->prepare('SELECT * FROM membre WHERE GenderMembre = ? AND Marie = "N"');
             $statement->execute(array($gender));
             $membre = array();
             $i = 0;
             while ($table = $statement->fetch(\PDO::FETCH_ASSOC)){
-                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre']);
+                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre'],$table['Marie']);
+                $i++;
+            }
+            $statement->closeCursor();
+            return $membre;
+        }catch (\Exception $ex){
+            echo $ex->getMessage();
+        }
+    }
+
+    static function loadInfoMembreById(\PDO $pdo, $id_membre){
+        try {
+            $statement = $pdo->prepare('SELECT * FROM membre WHERE IdMembre = ? ');
+            $statement->execute(array($id_membre));
+            $membre = array();
+            $i = 0;
+            while ($table = $statement->fetch(\PDO::FETCH_ASSOC)){
+                $membre[$i] = new Membre($table['DateNaissance'], $table['GenderMembre'], $table['IdFamille'], $table['IdMembre'], $table['LieuNaissance'], $table['NomMembre'], $table['NumeroMembre'], $table['PrenomMembre'], $table['StatusMembre'],$table['Marie']);
                 $i++;
             }
             $statement->closeCursor();
